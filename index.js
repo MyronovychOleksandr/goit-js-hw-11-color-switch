@@ -22,30 +22,33 @@ class Switch {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  startSwithColor() {
+  startSwitchColor() {
     if (this.isActive) {
       return;
     }
     this.isActive = true;
+    refs.startBtn.setAttribute('disabled', true)
+    let maxNumber = colors.length - 1
     this.interval = setInterval(() => {
-      const index = this.randomIntegerFromInterval(0, 5);
+      const index = this.randomIntegerFromInterval(0, maxNumber);
       refs.body.style.background = colors[index];
     }, 1000);
   }
 
-  stopSwithColor() {
+  stopSwitchColor() {
     clearInterval(this.interval);
     this.interval = "";
     this.isActive = false;
+    refs.startBtn.removeAttribute('disabled')
   }
 }
 
 const switcher = new Switch();
 
 refs.startBtn.addEventListener("click", () => {
-  switcher.startSwithColor();
+  switcher.startSwitchColor();
 });
 
 refs.stopBtn.addEventListener("click", () => {
-  switcher.stopSwithColor();
+  switcher.stopSwitchColor();
 });
